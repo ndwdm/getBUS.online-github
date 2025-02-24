@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getBUS – Real-Time Bus Tracking & Offline Routes</title>
+    <meta name="description" content="Custom transport tracking solutions with real-time tracking, route optimization, and smart mobility features. Contact getBUS for your business needs.">
+    <meta name="keywords" content="transport tracking, bus tracking, public transport, smart mobility, batumi, georgia, bus tracking, public transport, live bus map, city routes, realtime, online, monitoring">
+    <meta name="author" content="Gennady Dmitrik">
+
+    <style>
+        /* Full-screen background */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Background container with two layers for smooth transitions */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .bg-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .bg-image.active {
+            opacity: 1;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        header {
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .feature-box {
+            background: #d68417;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 6px;
+            text-align: center;
+            width: 30%;
+            min-width: 280px;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+        }
+        .pricing-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        .pricing-table th, .pricing-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .pricing-table th {
+            background: #007bff;
+            color: white;
+        }
+        .contact {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .contact a {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .contact a:hover {
+            background: #0056b3;
+        }
+
+        .container {
+            position: relative;
+        
+            /* position: absolute;
+            top: 20px;
+            left: 20px; */
+
+            max-width: 70%;
+            height: 80%;
+            margin: 10px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+
+            /* Enable scrolling */
+            overflow-y: auto;
+            overflow-x: hidden;  /* Prevent horizontal scrolling */
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        .logo {
+            width: 150px;
+            animation: slideIn 1.5s ease-in-out;
+        }
+
+        /* Slide-in Animation */
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .qr-code {
+            width: 150px;
+            margin: 20px auto;
+            transition: transform 0.2s;
+        }
+
+        .qr-code:hover {
+            transform: scale(1.1);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .store-btn {
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .store-btn img {
+            width: 180px; /* Adjust size */
+            height: auto;
+        }
+
+        .store-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Full-width Footer */
+        .footer {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer a {
+            color: #3B9AFE;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile-friendly */
+        @media (max-width: 600px) {
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Container with Two Layers -->
+    <div class="background-container">
+        <div class="bg-image active" id="bg1"></div>
+        <div class="bg-image" id="bg2"></div>
+    </div>
+
+    <header>
+        🚍 getBUS Custom Transport Solutions
+    </header>
+
+    <div class="container">
+        <h1>Why Choose getBUS for Your Transport Needs?</h1>
+        <div class="features">
+            <div class="feature-box">✅ Real-time Transport Tracking</div>
+            <div class="feature-box">✅ Custom Routes & Schedules</div>
+            <div class="feature-box">✅ Passenger Information System</div>
+            <div class="feature-box">✅ iOS, Android & Web Integration</div>
+            <div class="feature-box">✅ Ad Monetization Ready</div>
+            <div class="feature-box">✅ Scalable & Secure Cloud Hosting</div>
+        </div>
+    
+        <img src="images/getBUS.png" alt="getBUS Logo" class="logo">
+
+        <h2>Who Can Benefit?</h2>
+        <ul>
+            <li>🚍 <strong>City Governments & Public Transport</strong> - Improve transit efficiency.</li>
+            <li>🚐 <strong>Private Shuttle Services</strong> - Optimize fleet management.</li>
+            <li>🚕 <strong>Rideshare & Logistics Companies</strong> - Enhance tracking and dispatching.</li>
+            <li>🏫 <strong>Universities & Events</strong> - Manage shuttle routes effectively.</li>
+        </ul>
+    
+        <h2>📦 Pricing Plans</h2>
+        <table class="pricing-table">
+            <tr>
+                <th>Plan</th>
+                <th>Features</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td><strong>Starter 🚀</strong></td>
+                <td>Basic tracking, up to 50 vehicles</td>
+                <td><strong>$99/month</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Pro 🔥</strong></td>
+                <td>Custom branding, route optimization, up to 500 vehicles</td>
+                <td><strong>$299/month</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Enterprise 🌍</strong></td>
+                <td>Fully customized, API integration, unlimited vehicles</td>
+                <td><strong>Contact Us</strong></td>
+            </tr>
+        </table>
+    
+        <h2>🚀 Get Started Today</h2>
+        <p>Ready to enhance your transport system? Contact us for a **demo and consultation**.</p>
+        
+        <div class="contact">
+            <a href="mailto:ndwdm@hotmail.com">📩 Contact Us</a>
+        </div>
+        
+        <div class="contact">
+            <h1>More info on <a href="https://getbus.app" target="_blank">getBUS.app</a> or use QR and links below</h1>
+        </div>
+        
+        <!-- QR Code -->
+        <img src="images/qr-code.png" alt="Scan to Download" class="qr-code">
+        
+        <div class="buttons">
+            <a href="https://apps.apple.com/app/id6736360762" class="store-btn" target="_blank">
+                <img src="images/appStore.png" alt="Download on the App Store">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=world.newdigital.getBUS" class="store-btn" target="_blank">
+                <img src="images/googlePlay.png" alt="Get it on Google Play">
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 getBUS. All rights reserved. | <a href="http://newdigital.world/getBUS_user_agreement.html" target="_blank">User Agreement</a></p>
+    </div>
+
+    <!-- JavaScript for Random Background -->
+    <script>
+        const backgrounds = [
+            'images/background1.png',
+            'images/background2.png',
+            'images/background3.png',
+            'images/background4.png'
+        ];
+
+        let currentIndex = 0;
+        let bg1 = document.getElementById("bg1");
+        let bg2 = document.getElementById("bg2");
+
+        function changeBackground() {
+            currentIndex = (currentIndex + 1) % backgrounds.length;
+
+            // Set the next background on the hidden layer
+            bg2.style.backgroundImage = `url('${backgrounds[currentIndex]}')`;
+
+            // Fade in bg2 while fading out bg1
+            bg2.classList.add("active");
+            bg1.classList.remove("active");
+
+            // Swap layers after transition
+            setTimeout(() => {
+                let temp = bg1;
+                bg1 = bg2;
+                bg2 = temp;
+            }, 1500);
+        }
+        setInterval(changeBackground, 7000);
+        bg1.style.backgroundImage = `url('${backgrounds[0]}')`;
+    </script>
+</body>
+</html>
