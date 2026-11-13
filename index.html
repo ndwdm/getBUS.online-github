@@ -51,71 +51,15 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        header {
-            background: #007bff;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-size: 24px;
-        }
-        h2 {
-            color: #007bff;
-            text-align: center;
-        }
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-        .feature-box {
-            background: #d68417;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 6px;
-            text-align: center;
-            width: 30%;
-            min-width: 280px;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-        }
-        .pricing-table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        .pricing-table th, .pricing-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        .pricing-table th {
-            background: #007bff;
-            color: white;
-        }
-        .contact {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .contact a {
-            display: inline-block;
-            background: #007bff;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-        }
-        .contact a:hover {
-            background: #0056b3;
-        }
 
         .container {
             position: absolute;
-            top: 75px;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 60px;
+            bottom: 70px;
             padding: 16px;
-            width: 85%;
+            width: 50%;
             margin: 10px auto;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 12px;
@@ -165,7 +109,7 @@
         }
 
         .store-btn img {
-            width: 180px;
+            width: 180px; /* Adjust size */
             height: auto;
         }
 
@@ -194,10 +138,12 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 800px) {
-            header {
-            font-size: 18px;
-        }
+        /* Mobile-friendly */
+        @media (max-width: 600px) {
+            .container {
+                top: 10px;
+                width: 80%;
+            }
             .buttons {
                 flex-direction: column;
                 gap: 10px;
@@ -213,65 +159,10 @@
         <div class="bg-image" id="bg2"></div>
     </div>
 
-    <header>
-        🚍 getBUS Custom Transport Solutions
-    </header>
-
     <div class="container">
-        <h1>Why Choose getBUS for Your Transport Needs?</h1>
-        <div class="features">
-            <div class="feature-box">✅ Real-time Transport Tracking</div>
-            <div class="feature-box">✅ Custom Routes & Schedules</div>
-            <div class="feature-box">✅ Passenger Information System</div>
-            <div class="feature-box">✅ iOS, Android & Web Integration</div>
-            <div class="feature-box">✅ Ad Monetization Ready</div>
-            <div class="feature-box">✅ Scalable & Secure Cloud Hosting</div>
-        </div>
-    
         <img src="images/getBUS.png" alt="getBUS Logo" class="logo">
-
-        <h2>Who Can Benefit?</h2>
-        <ul>
-            <li>🚍 <strong>City Governments & Public Transport</strong> - Improve transit efficiency.</li>
-            <li>🚐 <strong>Private Shuttle Services</strong> - Optimize fleet management.</li>
-            <li>🚕 <strong>Rideshare & Logistics Companies</strong> - Enhance tracking and dispatching.</li>
-            <li>🏫 <strong>Universities & Events</strong> - Manage shuttle routes effectively.</li>
-        </ul>
-    
-        <h2>📦 Pricing Plans</h2>
-        <table class="pricing-table">
-            <tr>
-                <th>Plan</th>
-                <th>Features</th>
-                <th>Price</th>
-            </tr>
-            <tr>
-                <td><strong>Starter 🚀</strong></td>
-                <td>Basic tracking, up to 50 vehicles</td>
-                <td><strong>$99/month</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Pro 🔥</strong></td>
-                <td>Custom branding, route optimization, up to 500 vehicles</td>
-                <td><strong>$299/month</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Enterprise 🌍</strong></td>
-                <td>Fully customized, API integration, unlimited vehicles</td>
-                <td><strong>Contact Us</strong></td>
-            </tr>
-        </table>
-    
-        <h2>🚀 Get Started Today</h2>
-        <p>Ready to enhance your transport system? Contact us for a **demo and consultation**.</p>
-        
-        <div class="contact">
-            <a href="mailto:ndwdm@hotmail.com">📩 Contact Us</a>
-        </div>
-        
-        <div class="contact">
-            <h1>More info on <a href="https://getbus.app" target="_blank">getBUS.app</a> or use QR and links below</h1>
-        </div>
+        <h1>getBUS – Real-Time Bus Tracking & Offline Routes</h1>
+        <p>Real-time bus tracking, offline routes, and smooth navigation.</p>
         
         <!-- QR Code -->
         <img src="images/qr-code.png" alt="Scan to Download" class="qr-code">
@@ -321,8 +212,39 @@
                 bg2 = temp;
             }, 1500);
         }
+
+        // Change background every 7 seconds
         setInterval(changeBackground, 7000);
+
+        // Set initial background
         bg1.style.backgroundImage = `url('${backgrounds[0]}')`;
+
+        // Set initial background
+        // changeBackground();
     </script>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDudUYUos6c09IWMQ__azKnohVvH1mBRP0",
+      authDomain: "getbus-badc7.firebaseapp.com",
+      projectId: "getbus-badc7",
+      storageBucket: "getbus-badc7.firebasestorage.app",
+      messagingSenderId: "920025302130",
+      appId: "1:920025302130:web:8260eed578391a1d1a2eeb",
+      measurementId: "G-KJGJ38FZPW"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 </body>
 </html>
